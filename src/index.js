@@ -11,17 +11,23 @@ module.exports = function toReadable(number) {
     if (number<10) {
         res = humanNumbers[number];
     }
+    
     if (str.length==3){
         if (twoDigitNumber<20 && twoDigitNumber>10) {
             res=humanNumbers[str[0]]+' '+tensNumbers[10]+' '
             +(elevenToNinteen[twoDigitNumber-10]); 
         } else {
-            res=humanNumbers[str[0]]+' '+tensNumbers[10]+' '
-            +tensNumbers[str[1]]+(oneDigitNumger!=0 ? ' '+humanNumbers[str[2]] : '');
+            res=humanNumbers[str[0]]+' '+tensNumbers[10]+
+            (tensNumbers[str[1]]=='' ? '' : ' '+tensNumbers[str[1]])+
+            (oneDigitNumger!=0 ? ' '+humanNumbers[str[2]] : '');
         } 
     }
     if (str.length==2){
-        
+        if (twoDigitNumber<20 && twoDigitNumber>10) {
+            res=(elevenToNinteen[twoDigitNumber-10]); 
+        } else {
+            res=tensNumbers[str[0]]+(oneDigitNumger!=0 ? ' '+humanNumbers[str[1]] : '');
+        } 
         
     }
     
