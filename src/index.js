@@ -6,13 +6,14 @@ const elevenToNinteen = ['', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fiftee
 module.exports = function toReadable(number) {
     let res = '';
     let str = number.toString();
-    let twoDigitNumber = parseFloat(str.slice(1,3)); 
-    let oneDigitNumger = parseFloat(str.slice(2,3));
+    let twoDigitNumber, oneDigitNumger;
     if (number<10) {
         res = humanNumbers[number];
     }
     
-    if (str.length==3){
+    if (number>=100){
+            twoDigitNumber = parseFloat(str.slice(1,3)); 
+            oneDigitNumger = parseFloat(str.slice(2,3));
         if (twoDigitNumber<20 && twoDigitNumber>10) {
             res=humanNumbers[str[0]]+' '+tensNumbers[10]+' '
             +(elevenToNinteen[twoDigitNumber-10]); 
@@ -21,19 +22,15 @@ module.exports = function toReadable(number) {
             (tensNumbers[str[1]]=='' ? '' : ' '+tensNumbers[str[1]])+
             (oneDigitNumger!=0 ? ' '+humanNumbers[str[2]] : '');
         } 
-    }
-    if (str.length==2){
+    } else if (number>=10){
+        twoDigitNumber = parseFloat(str.slice(0,2)); 
+        oneDigitNumger = parseFloat(str.slice(1,2));
         if (twoDigitNumber<20 && twoDigitNumber>10) {
             res=(elevenToNinteen[twoDigitNumber-10]); 
         } else {
             res=tensNumbers[str[0]]+(oneDigitNumger!=0 ? ' '+humanNumbers[str[1]] : '');
         } 
-        
     }
     
     return res;
 }
-
-//toReadable(number)
-
-
